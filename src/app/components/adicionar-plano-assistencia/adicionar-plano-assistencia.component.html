@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>{{ planoId ? 'Editar Plano de Assistência' : 'Criar Novo Plano' }}</h2>
+
+  <form [formGroup]="planoForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input id="descricao" formControlName="descricao" class="form-control" required />
+      <div *ngIf="planoForm.get('descricao')?.invalid && planoForm.get('descricao')?.touched" class="text-danger">
+        A descrição é obrigatória.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="cobertura">Cobertura</label>
+      <input id="cobertura" formControlName="cobertura" class="form-control" required />
+      <div *ngIf="planoForm.get('cobertura')?.invalid && planoForm.get('cobertura')?.touched" class="text-danger">
+        A cobertura é obrigatória.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="empresaId">Empresa</label>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Selecione a Empresa</mat-label>
+        <mat-select formControlName="empresaId">
+          <mat-option *ngFor="let empresa of empresas" [value]="empresa.id">
+            {{ empresa.nome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="planoForm.get('empresaId')?.invalid && planoForm.get('empresaId')?.touched" class="text-danger">
+        Selecione uma empresa.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="planoForm.invalid" class="btn-submit">
+      {{ planoId ? 'Salvar Alterações' : 'Criar Plano' }}
+    </button>
+  </form>
+</div>

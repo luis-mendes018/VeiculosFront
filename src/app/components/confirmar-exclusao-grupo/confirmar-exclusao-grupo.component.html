@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Confirmar Exclusão<mat-icon>delete</mat-icon></h2>
+<mat-dialog-content>
+  <p>Tem certeza que deseja excluir o grupo <strong>{{ data.grupo.nome }}</strong>?</p>
+  <p>ATENÇÂO! <mat-icon>warning</mat-icon> ao fazer isso, todos os veículos relacionados a esse grupo serão excluídos.</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button color="warn" (click)="onConfirm()">Excluir</button>
+</mat-dialog-actions>

@@ -1,0 +1,41 @@
+<div class="container">
+  <h2>Gerenciar Planos de Assistência</h2>
+
+  <button class="botao-adicionar" mat-raised-button color="primary" (click)="adicionarPlanoAssistencia()">Adicionar Plano <mat-icon>add</mat-icon></button>
+
+  <!-- Tabela de Planos -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+
+    <ng-container matColumnDef="descricao">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let plano">{{ plano.descricao }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cobertura">
+      <th mat-header-cell *matHeaderCellDef> Cobertura </th>
+      <td mat-cell *matCellDef="let plano">{{ plano.cobertura }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef> Opções </th>
+      <td mat-cell *matCellDef="let plano">
+        <button mat-icon-button color="primary" title="editar" [routerLink]="['/editar-plano', plano.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" title="excluir" (click)="excluirPlano(plano.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paginador -->
+  <mat-paginator [length]="totalRecords"
+                 [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

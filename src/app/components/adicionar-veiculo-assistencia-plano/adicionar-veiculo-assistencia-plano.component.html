@@ -1,0 +1,40 @@
+<div class="container">
+   <h2>{{ associacaoId ? 'Editar Associação' : 'Criar Nova Associação' }}</h2>
+
+  <form [formGroup]="associacaoForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="veiculoId">Veículo</label>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Selecione um Veículo</mat-label>
+        <mat-select formControlName="veiculoId">
+          <mat-option *ngFor="let veiculo of veiculos" [value]="veiculo.id">
+            {{ veiculo.modelo }} - {{ veiculo.placa }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="associacaoForm.get('veiculoId')?.invalid && associacaoForm.get('veiculoId')?.touched" class="text-danger">
+        Selecione um veículo.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="planoId">Plano de Assistência</label>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Selecione um Plano</mat-label>
+        <mat-select formControlName="planoId">
+          <mat-option *ngFor="let plano of planosAssistencia" [value]="plano.id">
+            {{ plano.descricao }} - Cobertura: {{ plano.cobertura }} - Empresa: {{ plano.empresaNome }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="associacaoForm.get('planoId')?.invalid && associacaoForm.get('planoId')?.touched" class="text-danger">
+        Selecione um plano de assistência.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="associacaoForm.invalid" class="btn-submit">
+     {{ associacaoId ? 'Salvar Alterações' : 'Criar Associação' }}
+    </button>
+  </form>
+</div>

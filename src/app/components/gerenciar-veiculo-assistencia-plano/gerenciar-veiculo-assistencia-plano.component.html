@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>Gerenciar Associações de Veículos e Planos</h2>
+
+  <button class="botao-adicionar" mat-raised-button color="primary" (click)="adicionarPlanoVeiculoAssistencia()">Adicionar Associação <mat-icon>add</mat-icon></button>
+
+  <!-- Tabela de Associações -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+
+    <!-- Coluna para o ID da associação -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let item">{{ item.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="veiculo">
+      <th mat-header-cell *matHeaderCellDef> Veículo </th>
+      <td mat-cell *matCellDef="let item">{{ item.veiculo.modelo }} - {{ item.veiculo.placa }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="plano">
+      <th mat-header-cell *matHeaderCellDef> Plano </th>
+      <td mat-cell *matCellDef="let item">{{ item.plano.descricao }} - Cobertura: {{ item.plano.cobertura }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="empresa">
+      <th mat-header-cell *matHeaderCellDef> Empresa </th>
+      <td mat-cell *matCellDef="let item">{{ item.plano.empresa.nome }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acoes">
+      <th mat-header-cell *matHeaderCellDef> Opções </th>
+      <td mat-cell *matCellDef="let item">
+        <button mat-icon-button color="primary" title="editar" [routerLink]="['/editar-associacao', item.id]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" title="excluir" (click)="onExcluir(item.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Paginador -->
+  <mat-paginator [length]="totalRecords"
+                 [pageSize]="pageSize"
+                 [pageIndex]="pageIndex"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

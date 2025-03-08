@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Editar Veículo <mat-icon>edit</mat-icon></h2>
+
+  <!-- Formulário para adicionar veículo -->
+  <form (ngSubmit)="onSubmit()" [formGroup]="veiculoForm">
+    <div class="form-group">
+      <label for="modelo">Modelo:</label>
+      <input id="modelo" formControlName="modelo" class="form-control" required />
+      <div *ngIf="veiculoForm.get('modelo')?.invalid && veiculoForm.get('modelo')?.touched">
+        <small class="text-danger" *ngIf="veiculoForm.get('modelo')?.hasError('required')">O modelo é obrigatório.</small>
+        <small class="text-danger" *ngIf="veiculoForm.get('modelo')?.hasError('maxlength')">O modelo não pode ter mais de 200 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="placa">Placa:</label>
+      <input id="placa" formControlName="placa" class="form-control" required />
+      <div *ngIf="veiculoForm.get('placa')?.invalid && veiculoForm.get('placa')?.touched">
+        <small class="text-danger" *ngIf="veiculoForm.get('placa')?.hasError('required')">A placa é obrigatória.</small>
+        <small class="text-danger" *ngIf="veiculoForm.get('placa')?.hasError('maxlength')">A placa não pode ter mais de 200 caracteres.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="grupo">Grupo:</label>
+      <select id="grupo" formControlName="grupoId" class="form-control" required>
+        <option value="" disabled>Selecione um grupo</option>
+        <option *ngFor="let grupo of gruposVeiculos" [value]="grupo.id">{{ grupo.nome }}</option>
+      </select>
+      <div *ngIf="veiculoForm.get('grupoId')?.invalid && veiculoForm.get('grupoId')?.touched">
+        <small class="text-danger" *ngIf="veiculoForm.get('grupoId')?.hasError('required')">O grupo é obrigatório.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="veiculoForm.invalid" class="btn btn-primary">Salvar</button>
+  </form>
+</div>
